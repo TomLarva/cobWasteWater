@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CA Waste Water</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">  
+    <style>
+      #map {
+       height: 600px;
+       width: 50%;
+      }
+      #legend {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 3px solid #000;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>California Wastewater Monthly Fees</h3>
+    <div id="map"></div>
+    <div id="legend"><h3>Waste Water Fee</h3></div>    
+	
+	<script>
+	
+// This displays markers in California for wastewater plants.
+// When the user clicks the marker, an info window opens.
+//var map
+function initMap() {
+
+var  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 6,
+    center: {lat: LAT_CENTER_XXX, lng: LONG_CENTER_XXX}
+  });
+
+  
+  icon__WHITE  = "http://chart.apis.google.com/chart?cht=d&chdp=mapsapi&chl=pin'i%5c'%5b'-2'f%5chv'a%5c%5dh%5c%5do%5cXXX_CLR_0_XXX'fC%5c000000'tC%5c000000'eC%5cLauto'f%5c&ext=.png"
+  icon__YELLOW = "http://chart.apis.google.com/chart?cht=d&chdp=mapsapi&chl=pin'i%5c'%5b'-2'f%5chv'a%5c%5dh%5c%5do%5cXXX_CLR_1_XXX'fC%5c000000'tC%5c000000'eC%5cLauto'f%5c&ext=.png"
+  icon__ORANGE = "http://chart.apis.google.com/chart?cht=d&chdp=mapsapi&chl=pin'i%5c'%5b'-2'f%5chv'a%5c%5dh%5c%5do%5cXXX_CLR_2_XXX'fC%5c000000'tC%5c000000'eC%5cLauto'f%5c&ext=.png"
+  icon__RED    = "http://chart.apis.google.com/chart?cht=d&chdp=mapsapi&chl=pin'i%5c'%5b'-2'f%5chv'a%5c%5dh%5c%5do%5cXXX_CLR_3_XXX'fC%5c000000'tC%5c000000'eC%5cLauto'f%5c&ext=.png"
+  icon__PURPLE = "http://chart.apis.google.com/chart?cht=d&chdp=mapsapi&chl=pin'i%5c'%5b'-2'f%5chv'a%5c%5dh%5c%5do%5cXXX_CLR_4_XXX'fC%5c000000'tC%5c000000'eC%5cLauto'f%5c&ext=.png"
+
+  var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+  var icons = {
+    level_0: {
+      name: '<b>  &nbsp &nbsp $ &nbsp  &nbsp  &nbsp level_0_CHARGE_XXX </b>',
+      icon: icon__WHITE
+    },
+    level_1: {
+      name: '<b>  &nbsp &nbsp $ &nbsp  &nbsp    level_1_CHARGE_XXX </b>',
+      icon: icon__YELLOW
+    },
+    level_2: {
+      name: '<b>  &nbsp &nbsp $ &nbsp  &nbsp  level_2_CHARGE_XXX </b>',
+      icon: icon__ORANGE
+    },
+    level_3: {
+      name: '<b>  &nbsp &nbsp $ &nbsp  level_3_CHARGE_XXX </b>',
+      icon: icon__RED
+    },
+    level_4: {
+      name: '<b>  &nbsp &nbsp $ &nbsp  level_4_CHARGE_XXX </b>',
+      icon: icon__PURPLE
+    },
+  };
+
+
+//////  INFOWINDOW USED BY MULTIPLE PINS
+  var infowindow_MAIN = new google.maps.InfoWindow();
+
+
+///////////////////////////   BASE_POINT_START   ////////////////////////////////////
+  var sContentXXX = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+//      '<h1 id="firstHeading" class="firstHeading">The Base Rocks XXX</h1>'+
+      '<div id="bodyContent">'+
+      '<p>' + 
+      '<b>Agency </b>  AGENCY_XXX <br>' +
+	  '<b>City/Town </b>  CITY_TOWN_XXX <br>' +
+	  '<b>Zip Code </b>  ZIP_XXX <br>' +
+	  '<b>Median Household Income </b> $ MEDIAN_HOUSEHOLD_INCOME_XXX <br>' +
+	  '<b>Population </b>   POPULATION_XXX <br>' +
+	  '<b>Wastewater User Fee (monthly) </b>   $ WASTEWATER_USER_FEE_XXX <br>' +
+      '<b>lat/long </b>  Lat_XXX, Long_XXX <br>' +
+	  '</p>'+
+      '</div>'+
+      '</div>';
+
+  var markerXXX = new google.maps.Marker({
+    position: {lat: Lat_XXX, lng: Long_XXX},
+    map: map,
+    title: 'MarkerTitleXXX',
+	icon: 'http://www.googlemapsmarkers.com/v1/HEXCOLORXXX/'
+  });
+  
+  markerXXX.addListener('click', function() {
+    infowindow_MAIN.open(map, markerXXX);
+	infowindow_MAIN.setContent(sContentXXX);
+  });
+
+///////////////////////////   BASE_POINT_END   //////////////////////////////////////
+  
+///// INSERT_NEXT_PIN_HERE /////
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+///                          D O   N O T   T O U C H   B E L O W   T H I S  L I N E  
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+      var legend = document.getElementById('legend');
+        for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+        }
+
+        map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoSdkikyOu_hI3laHaLTiPw8IjvAQ4jew&callback=initMap">
+    </script>
+  </body>
+</html>
